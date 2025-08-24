@@ -2,38 +2,33 @@ name: Amul Stock Checker
 
 on:
   schedule:
-    - cron: "0 */4 * * *"   # every 4 hours
-  workflow_dispatch:         # allows manual run from GitHub UI
+    - cron: "0 */6 * * *"  # every 6 hours
+  workflow_dispatch:
 
 jobs:
-  build:
+  run-checker:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
-      - name: Install Firefox + geckodriver
+      - name: Install dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y firefox wget tar
-          GECKO_VERSION=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | grep tag_name | cut -d '"' -f 4)
-          wget -q https://github.com/mozilla/geckodriver/releases/download/$GECKO_VERSION/geckodriver-$GECKO_VERSION-linux64.tar.gz
-          tar -xvzf geckodriver-$GECKO_VERSION-linux64.tar.gz
-          sudo mv geckodriver /usr/local/bin/
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Check Firefox binary
-        run: |
-          which firefox
-          firefox --version
 
-
-          
-      - name: Run scraper
+      - name: Install Firefox + Geckodriver
         run: |
-          python amul_checker.py
+          sudo add-apt-repository ppa:mozillateam/ppa -y
+          sudo apt-get update
+          sudo apt-get install -y firefox
+          sudo apt-get install -y firefox-geckodriver
+
+      - name: Run Amul stock checker
+        run: python amul_checker.py
