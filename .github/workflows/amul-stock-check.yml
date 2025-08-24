@@ -2,7 +2,7 @@ name: Amul Stock Checker
 
 on:
   schedule:
-    - cron: "0 */6 * * *"  # every 6 hours
+    - cron: '*/15 * * * *'  # every 15 minutes
   workflow_dispatch:
 
 jobs:
