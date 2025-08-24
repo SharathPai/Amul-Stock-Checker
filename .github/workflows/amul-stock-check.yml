@@ -25,6 +25,8 @@ jobs:
           wget -q https://github.com/mozilla/geckodriver/releases/download/$GECKO_VERSION/geckodriver-$GECKO_VERSION-linux64.tar.gz
           tar -xvzf geckodriver-$GECKO_VERSION-linux64.tar.gz
           sudo mv geckodriver /usr/local/bin/
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
           
       - name: Run scraper
         run: |
