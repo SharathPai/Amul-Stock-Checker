@@ -33,11 +33,15 @@ TARGET_PRODUCTS = [
 
 def scrape_products():
     options = Options()
-    options.add_argument("--start-maximized")
+    #options.add_argument("--start-maximized")
     options.add_argument("--headless")
+    options.add_argument("--no-sandbox")     # good practice in CI
+    options.add_argument("--disable-dev-shm-usage")
     #options.binary_location = firefox_path
-    service = Service(GeckoDriverManager().install())
-    driver = webdriver.Firefox(service=Service(), options=options)
+    #service = Service(GeckoDriverManager().install())
+    #driver = webdriver.Firefox(service=Service(), options=options)
+    # Geckodriver will be found automatically if installed in /usr/local/bin
+    driver = webdriver.Firefox(options=options)
     driver.get(URL)
 
     wait = WebDriverWait(driver, 15)
@@ -136,6 +140,7 @@ if __name__ == "__main__":
         send_email(filtered)
     else:
         print("ℹ️ No target products in stock. Email not sent.")
+
 
 
 
