@@ -11,13 +11,14 @@ import time
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import os
 
 # ------------------ CONFIG ------------------
 URL = "https://shop.amul.com/en/browse/protein"
 PINCODE = "411047"
-SENDER_EMAIL = "sharathpai2307@gmail.com"
-SENDER_PASSWORD = "uaoxoeimsueyommf "  # Use app password
-RECIPIENT_EMAIL = "sharathpai2307@gmail.com"
+SENDER_EMAIL = os.getenv("EMAIL_USER")
+SENDER_PASSWORD = os.getenv("EMAIL_PASS")  # Use app password
+RECIPIENT_EMAIL = os.getenv("EMAIL_USER")
 
 # Products of interest
 TARGET_PRODUCTS = [
@@ -133,3 +134,4 @@ if __name__ == "__main__":
         send_email(filtered)
     else:
         print("ℹ️ No target products in stock. Email not sent.")
+
