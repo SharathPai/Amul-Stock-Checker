@@ -1,0 +1,32 @@
+name: Amul Stock Checker
+
+on:
+  schedule:
+    - cron: "0 */4 * * *"   # every 4 hours
+  workflow_dispatch:         # allows manual run from GitHub UI
+
+jobs:
+  check-stock:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y firefox-esr xvfb
+          wget https://github.com/mozilla/geckodriver/releases/download/v0.34.0/geckodriver-v0.34.0-linux64.tar.gz
+          tar -xvzf geckodriver-v0.34.0-linux64.tar.gz
+          sudo mv geckodriver /usr/local/bin/
+          pip install selenium
+
+      - name: Run scraper
+        run: |
+          python amul_checker.py
