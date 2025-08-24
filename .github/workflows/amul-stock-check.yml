@@ -27,6 +27,12 @@ jobs:
           sudo mv geckodriver /usr/local/bin/
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      - name: Check Firefox binary
+        run: |
+          which firefox
+          firefox --version
+
+
           
       - name: Run scraper
         run: |
