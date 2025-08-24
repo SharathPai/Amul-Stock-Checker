@@ -23,12 +23,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Install Firefox + Geckodriver
+      - name: Install Firefox
         run: |
-          sudo add-apt-repository ppa:mozillateam/ppa -y
+          sudo add-apt-repository -y ppa:mozillateam/ppa
           sudo apt-get update
           sudo apt-get install -y firefox
-          sudo apt-get install -y firefox-geckodriver
+
+      - name: Install Geckodriver
+        run: |
+          GECKO_VERSION=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
+          wget -q "https://github.com/mozilla/geckodriver/releases/download/v$GECKO_VERSION/geckodriver-v$GECKO_VERSION-linux64.tar.gz"
+          tar -xzf geckodriver-v$GECKO_VERSION-linux64.tar.gz
+          sudo mv geckodriver /usr/local/bin/
+          geckodriver --version
 
       - name: Run Amul stock checker
         run: python amul_checker.py
