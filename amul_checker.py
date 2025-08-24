@@ -12,6 +12,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
+import shutil
 
 # ------------------ CONFIG ------------------
 URL = "https://shop.amul.com/en/browse/protein"
@@ -19,6 +20,7 @@ PINCODE = "411047"
 SENDER_EMAIL = os.getenv("EMAIL_USER")
 SENDER_PASSWORD = os.getenv("EMAIL_PASS")  # Use app password
 RECIPIENT_EMAIL = os.getenv("EMAIL_USER")
+firefox_path = shutil.which("firefox")
 
 # Products of interest
 TARGET_PRODUCTS = [
@@ -33,7 +35,7 @@ def scrape_products():
     options = Options()
     options.add_argument("--start-maximized")
     options.add_argument("--headless")
-    options.binary_location = "/snap/bin/firefox"
+    options.binary_location = firefox_path
     service = Service(GeckoDriverManager().install())
     driver = webdriver.Firefox(service=Service(), options=options)
     driver.get(URL)
@@ -134,6 +136,7 @@ if __name__ == "__main__":
         send_email(filtered)
     else:
         print("ℹ️ No target products in stock. Email not sent.")
+
 
 
 
