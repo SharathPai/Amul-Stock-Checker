@@ -33,7 +33,7 @@ def scrape_products():
     options = Options()
     options.add_argument("--start-maximized")
     options.add_argument("--headless")
-    #options.binary_location = r"C:\Program Files\Mozilla Firefox\firefox.exe"
+    options.binary_location = "/usr/bin/firefox"
     service = Service(GeckoDriverManager().install())
     driver = webdriver.Firefox(service=Service(), options=options)
     driver.get(URL)
@@ -134,5 +134,6 @@ if __name__ == "__main__":
         send_email(filtered)
     else:
         print("ℹ️ No target products in stock. Email not sent.")
+
 
 
