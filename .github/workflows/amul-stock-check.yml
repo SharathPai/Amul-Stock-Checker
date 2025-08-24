@@ -17,16 +17,15 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install dependencies
+      - name: Install Firefox + geckodriver
         run: |
           sudo apt-get update
-          sudo apt-get install -y firefox wget
-          wget https://github.com/mozilla/geckodriver/releases/latest/download/geckodriver-v0.34.0-linux64.tar.gz
-          tar -xvzf geckodriver-v0.34.0-linux64.tar.gz
+          sudo apt-get install -y firefox wget tar
+          GECKO_VERSION=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | grep tag_name | cut -d '"' -f 4)
+          wget -q https://github.com/mozilla/geckodriver/releases/download/$GECKO_VERSION/geckodriver-$GECKO_VERSION-linux64.tar.gz
+          tar -xvzf geckodriver-$GECKO_VERSION-linux64.tar.gz
           sudo mv geckodriver /usr/local/bin/
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
+          
       - name: Run scraper
         run: |
           python amul_checker.py
