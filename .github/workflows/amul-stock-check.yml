@@ -45,3 +45,6 @@ jobs:
 
       - name: Run Amul stock checker
         run: python amul_checker.py
+        env:
+          SENDER_EMAIL: ${{ secrets.EMAIL_USER }}
+          SENDER_PASSWORD: ${{ secrets.EMAIL_PASS }}
