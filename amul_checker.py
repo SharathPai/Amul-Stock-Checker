@@ -17,11 +17,14 @@ import shutil
 # ------------------ CONFIG ------------------
 URL = "https://shop.amul.com/en/browse/protein"
 PINCODE = "411047"
-SENDER_EMAIL = os.getenv("EMAIL_USER")
-SENDER_PASSWORD = os.getenv("EMAIL_PASS")  # Use app password
-RECIPIENT_EMAIL = os.getenv("EMAIL_USER")
-print(os.getenv("EMAIL_PASS"))  # Use app password
-print(os.getenv("EMAIL_USER"))
+#SENDER_EMAIL = os.getenv("EMAIL_USER")
+#SENDER_PASSWORD = os.getenv("EMAIL_PASS")  # Use app password
+#RECIPIENT_EMAIL = os.getenv("EMAIL_USER")
+SENDER_EMAIL = os.environ.get("SENDER_EMAIL")
+SENDER_PASSWORD = os.environ.get("SENDER_PASSWORD")
+RECIPIENT_EMAIL = os.environ.get("SENDER_EMAIL")
+print("mAIL: ",os.environ.get("SENDER_EMAIL"))  # Use app password
+print("pASS:",os.environ.get("SENDER_PASSWORD"))
 firefox_path = shutil.which("firefox")
 
 # Products of interest
@@ -144,6 +147,7 @@ if __name__ == "__main__":
         send_email(filtered)
     else:
         print("ℹ️ No target products in stock. Email not sent.")
+
 
 
 
