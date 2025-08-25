@@ -20,6 +20,8 @@ PINCODE = "411047"
 SENDER_EMAIL = os.getenv("EMAIL_USER")
 SENDER_PASSWORD = os.getenv("EMAIL_PASS")  # Use app password
 RECIPIENT_EMAIL = os.getenv("EMAIL_USER")
+print(os.getenv("EMAIL_PASS"))  # Use app password
+print(os.getenv("EMAIL_USER"))
 firefox_path = shutil.which("firefox")
 
 # Products of interest
@@ -142,6 +144,7 @@ if __name__ == "__main__":
         send_email(filtered)
     else:
         print("ℹ️ No target products in stock. Email not sent.")
+
 
 
 
