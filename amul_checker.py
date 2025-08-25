@@ -23,17 +23,15 @@ PINCODE = "411047"
 SENDER_EMAIL = os.environ.get("SENDER_EMAIL")
 SENDER_PASSWORD = os.environ.get("SENDER_PASSWORD")
 RECIPIENT_EMAIL = os.environ.get("SENDER_EMAIL")
-print("mAIL: ",os.environ.get("SENDER_EMAIL"))  # Use app password
-print("pASS:",os.environ.get("SENDER_PASSWORD"))
 firefox_path = shutil.which("firefox")
 
 # Products of interest
 TARGET_PRODUCTS = [
-    "Amul High Protein Plain Lassi, 200 mL | Pack of 30",
-    "Amul High Protein Buttermilk, 200 mL | Pack of 30",
-    "Amul High Protein Rose Lassi, 200 mL | Pack of 30",
-    "Amul Chocolate Whey Protein, 34 g | Pack of 30 sachets",
-    "Amul High Protein Blueberry Shake, 200 mL | Pack of 30"
+    "Amul High Protein Plain Lassi, 200 mL | Pack of 30"
+    ,"Amul High Protein Buttermilk, 200 mL | Pack of 30"
+    ,"Amul High Protein Rose Lassi, 200 mL | Pack of 30"
+    ,"Amul Chocolate Whey Protein, 34 g | Pack of 30 sachets"
+    #,"Amul High Protein Blueberry Shake, 200 mL | Pack of 30"
 ]
 # --------------------------------------------
 
@@ -147,6 +145,7 @@ if __name__ == "__main__":
         send_email(filtered)
     else:
         print("ℹ️ No target products in stock. Email not sent.")
+
 
 
 
