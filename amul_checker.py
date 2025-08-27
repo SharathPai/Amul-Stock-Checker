@@ -114,13 +114,14 @@ def filter_target_products(products):
 
 def send_email(filtered_products):
     msg = MIMEMultipart("alternative")
-    msg["Subject"] = "Amul Protein Availability Alert 🚨"
+    msg["Subject"] = "Amul Stock Alert 🚨"
     msg["From"] = SENDER_EMAIL
     msg["To"] = RECIPIENT_EMAIL
 
-    html = "<h2>Stock Status for Selected Products</h2><ul>"
+    html = "<h2>Below Product(s) is/are in Stock</h2><ul>"
     for p in filtered_products:
-        html += f"<li>{p['name']} | {p['price']} | <b>{p['stock']}</b></li>"
+        if p["stock"] == "In Stock":
+            html += f"<li>{p['name']} | {p['price']} | <b>{p['stock']}</b></li>"
     html += "</ul>"
 
     msg.attach(MIMEText(html, "html"))
@@ -145,6 +146,7 @@ if __name__ == "__main__":
         send_email(filtered)
     else:
         print("ℹ️ No target products in stock. Email not sent.")
+
 
 
 
